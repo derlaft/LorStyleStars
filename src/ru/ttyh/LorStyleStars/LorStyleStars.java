@@ -56,12 +56,12 @@ public class LorStyleStars extends JavaPlugin {
 					p.sendMessage("/score stars - show this page" );
 					if (p.isOp()) {
 						p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
+						p.sendMessage("/score reload - reload config (without save)" );
 						p.sendMessage("/score get <username> - get score of username" );
 						p.sendMessage("/score set <username> <count> - set score of username" );
 						p.sendMessage("/score add <username> <+/-><count> - add or remove score" );
+						
 					}
-					
-					
 					return true;
 				} else return false;
 			case 2:
@@ -79,7 +79,7 @@ public class LorStyleStars extends JavaPlugin {
 					return true;
 				}
 				if (! p.isOp() ) {
-					p.sendMessage(ChatColor.RED + "You can't do it, you are now OP");
+					p.sendMessage(ChatColor.RED + "You can't do it, you are not OP");
 					return true;
 				}
 				if ( args[0].equalsIgnoreCase("set") ) {
