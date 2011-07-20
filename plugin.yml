@@ -1,0 +1,8 @@
+name: LorStyleStars
+main: ru.ttyh.LorStyleStars.LorStyleStars
+version: 0.01
+commands:
+    score:
+        get:
+            description: Show current score
+            usage: /score
