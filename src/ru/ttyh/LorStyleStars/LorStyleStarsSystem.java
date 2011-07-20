@@ -88,7 +88,7 @@ public class LorStyleStarsSystem {
 		if (now.equalsIgnoreCase(then)) {
 			return;
 		} else {
-			addScore(name, "5");
+			addScore(name, "1");
 			config.setProperty(name + ".utime", now);
 		}
 
