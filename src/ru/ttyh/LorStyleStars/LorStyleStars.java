@@ -49,10 +49,25 @@ public class LorStyleStars extends JavaPlugin {
 					LorStyleStarsSystem.reload();
 					p.sendMessage(ChatColor.YELLOW + "Config reloaded" );
 					return true;
+				} else if (args[0].equalsIgnoreCase("help") ) {
+					p.sendMessage(ChatColor.YELLOW + "LorStyleScore commands:" );
+					p.sendMessage("/score - show your score" );
+					p.sendMessage("/score stars - show your stars" );
+					p.sendMessage("/score stars - show this page" );
+					if (p.isOp()) {
+						p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
+						p.sendMessage("/score get <username> - get score of username" );
+						p.sendMessage("/score set <username> <count> - set score of username" );
+						p.sendMessage("/score add <username> <+/-><count> - add or remove score" );
+					}
+					
+					
+					return true;
 				} else return false;
 			case 2:
-				if (args[0].equalsIgnoreCase("get") && !args[1].equals(null) ) {
-					p.sendMessage(ChatColor.YELLOW + args[1] + "'s score is " +
+				if (args[0].equalsIgnoreCase("get")  ) {
+					if (p.getName() == args[1] || p.isOp())
+							p.sendMessage(ChatColor.YELLOW + args[1] + "'s score is " +
 							LorStyleStarsSystem.getScore(args[1]) );
 					return true;
 				} else return false;
