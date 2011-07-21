@@ -50,6 +50,9 @@ public class LorStyleStarsSystem {
 		config = new Configuration(file);
 		config.load();
 	}
+	public static void save() {
+		config.save();
+	}
 
 	public static int getScore(String name) {
 		name = name.toLowerCase();

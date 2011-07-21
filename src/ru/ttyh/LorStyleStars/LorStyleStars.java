@@ -53,6 +53,10 @@ public class LorStyleStars extends JavaPlugin {
 					LorStyleStarsSystem.reload();
 					p.sendMessage(ChatColor.YELLOW + "Config reloaded" );
 					return true;
+				} else  if (args[0].equalsIgnoreCase("save") ) {
+					LorStyleStarsSystem.save();
+					p.sendMessage(ChatColor.YELLOW + "Config saved" );
+					return true;
 				} else if (args[0].equalsIgnoreCase("help") ) {
 					p.sendMessage(ChatColor.YELLOW + "LorStyleScore commands:" );
 					p.sendMessage("/score - show your score" );
@@ -60,6 +64,7 @@ public class LorStyleStars extends JavaPlugin {
 					p.sendMessage("/score stars - show this page" );
 					if (p.isOp()) {
 						p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
+						p.sendMessage("/score save - force save config" );
 						p.sendMessage("/score reload - reload config (without save)" );
 						p.sendMessage("/score get <username> - get score of username" );
 						p.sendMessage("/score set <username> <count> - set score of username" );
