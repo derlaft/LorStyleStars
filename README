@@ -1,0 +1,17 @@
+Commands:
+LorStyleScore commands:
+/score - show your score
+/score stars - show your stars
+/score help - show this page
+Watchers commands:
+/score get <player> - get score of player
+Managers commands:
+/score save - force save config
+/score reload - reload Fconfig (without save)
+/score set <username> <count> - set score of username
+/score add <username> <+/-><count> - add or remove score
+
+Permissions nodes:
+
+score.eye - allows to see score of other players
+score.manage - allows to change score
