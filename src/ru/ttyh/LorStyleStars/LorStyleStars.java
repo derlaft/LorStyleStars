@@ -11,13 +11,17 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
+import org.bukkit.plugin.Plugin;
+
 // TODO Permissions
-// TODO sqlite3
-// TODO Chat stars
+// TODO sqlite
+// TODO Take Chat Control
 
 public class LorStyleStars extends JavaPlugin {
 	
-
+	public static PermissionHandler perms;
 	@Override
 	public void onDisable() {
 		LorStyleStarsSystem.disable();
@@ -28,7 +32,7 @@ public class LorStyleStars extends JavaPlugin {
 		PluginManager pm = this.getServer().getPluginManager();
 
 		pm.registerEvent(Type.PLAYER_JOIN, new LorStyleStarsPlayerListener(), Priority.Normal, this);
-
+		setupPermissions();
 	}
 
 	@Override 
@@ -50,45 +54,34 @@ public class LorStyleStars extends JavaPlugin {
 							LorStyleStarsSystem.scoreToStars(p.getName()) );
 					return true;
 				} else if (args[0].equalsIgnoreCase("reload") ) {
+					if (notHave(p, "manage")) 
+						return false;
 					LorStyleStarsSystem.reload();
 					p.sendMessage(ChatColor.YELLOW + "Config reloaded" );
 					return true;
 				} else  if (args[0].equalsIgnoreCase("save") ) {
+					if (notHave(p, "manage")) 
+						return false;
 					LorStyleStarsSystem.save();
 					p.sendMessage(ChatColor.YELLOW + "Config saved" );
 					return true;
 				} else if (args[0].equalsIgnoreCase("help") ) {
-					p.sendMessage(ChatColor.YELLOW + "LorStyleScore commands:" );
-					p.sendMessage("/score - show your score" );
-					p.sendMessage("/score stars - show your stars" );
-					p.sendMessage("/score help - show this page" );
-					if (p.isOp()) {
-						p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
-						p.sendMessage("/score save - force save config" );
-						p.sendMessage("/score reload - reload config (without save)" );
-						p.sendMessage("/score get <username> - get score of username" );
-						p.sendMessage("/score set <username> <count> - set score of username" );
-						p.sendMessage("/score add <username> <+/-><count> - add or remove score" );
-						
-					}
-					return true;
+					return help(p);
 				} else return false;
 			case 2:
 				if (args[0].equalsIgnoreCase("get")  ) {
-					if (p.getName() == args[1] || p.isOp())
+					if (p.getName() == args[1] || !notHave(p, "eye") )
 							p.sendMessage(ChatColor.YELLOW + args[1] + "'s score is " +
 							LorStyleStarsSystem.getScore(args[1]) );
 					return true;
 				} else return false;
 			case 3:
+				if (notHave(p, "manage")) 
+					return false;
 				try {
 					Integer.parseInt(args[2]);
 				} catch (NumberFormatException e){
 					p.sendMessage(ChatColor.RED + "arg[2] is not a nuber!");
-					return true;
-				}
-				if (! p.isOp() ) {
-					p.sendMessage(ChatColor.RED + "You can't do it, you are not OP");
 					return true;
 				}
 				if ( args[0].equalsIgnoreCase("set") ) {
@@ -114,4 +107,44 @@ public class LorStyleStars extends JavaPlugin {
 		}
 		return false;
 	}
-}
+	private void setupPermissions() {
+	    if (perms != null) {
+	        return;
+	    }
+	    
+	    Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+	    
+	    if (permissionsPlugin == null) {
+	        System.out.println("LSS: Permission system not detected, defaulting to OP");
+	        return;
+	    }
+	    
+	    perms = ((Permissions) permissionsPlugin).getHandler();
+	    System.out.println("LSS: Found and will use plugin "+((Permissions)permissionsPlugin).getDescription().getFullName());
+	}
+	private boolean help(Player p) {
+		p.sendMessage(ChatColor.YELLOW + "LorStyleScore commands:" );
+		p.sendMessage("/score - show your score" );
+		p.sendMessage("/score stars - show your stars" );
+		p.sendMessage("/score help - show this page" );
+		if (!notHave(p, "eye")) {
+			p.sendMessage("/score get <username> - get score of username" );
+		}
+		if (!notHave(p, "manage")) {
+			p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
+			p.sendMessage("/score save - force save config" );
+			p.sendMessage("/score reload - reload config (without save)" );
+			p.sendMessage("/score set <username> <count> - set score of username" );
+			p.sendMessage("/score add <username> <+/-><count> - add or remove score" );
+			
+		}
+		return true;
+	}
+	private boolean notHave(Player p, String node) {
+		  if (!LorStyleStars.perms.has(p, "score." + node)) {
+		      return true;
+		  }
+		return false;
+	}
+	
+	}
