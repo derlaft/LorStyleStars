@@ -21,5 +21,12 @@ commands:
             description: Add score to player
             usage: /score get <player> <+/-><score>
             permissions: score.manage
-        
+        reload:
+            description: Reload player database
+            usage: /score reload
+            permissions: score.manage
+         save:
+            description: Save player database
+            usage: /score save
+            permissions: score.manage
         
