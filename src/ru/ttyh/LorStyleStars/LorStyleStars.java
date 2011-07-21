@@ -61,7 +61,7 @@ public class LorStyleStars extends JavaPlugin {
 					p.sendMessage(ChatColor.YELLOW + "LorStyleScore commands:" );
 					p.sendMessage("/score - show your score" );
 					p.sendMessage("/score stars - show your stars" );
-					p.sendMessage("/score stars - show this page" );
+					p.sendMessage("/score help - show this page" );
 					if (p.isOp()) {
 						p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
 						p.sendMessage("/score save - force save config" );
