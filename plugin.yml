@@ -18,8 +18,8 @@ commands:
             usage: /score get <player>
             permissions: score.manage
         add:
-            description: Give score of player
-            usage: /score get <player>
+            description: Add score to player
+            usage: /score get <player> <+/-><score>
             permissions: score.manage
         
         
