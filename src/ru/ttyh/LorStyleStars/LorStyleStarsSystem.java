@@ -86,7 +86,7 @@ public class LorStyleStarsSystem {
 		name = name.toLowerCase();
 		String now = new java.text.SimpleDateFormat("dd-MM-yy")
 				.format(java.util.Calendar.getInstance().getTime());
-		String then = config.getString(name + ".utime", now);
+		String then = config.getString(name + ".utime", "never");
 		if (now.equals(then)) {
 			return;
 		} else {
