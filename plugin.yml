@@ -1,8 +1,25 @@
 name: LorStyleStars
 main: ru.ttyh.LorStyleStars.LorStyleStars
-version: 0.01
+version: 0.02
 commands:
     score:
+        help:
+            description: Show your stars
+            usage: /score stars
+        stars:
+            description: Show help
+            usage: /score help
         get:
-            description: Show current score
-            usage: /score
+            description: Show current score of player
+            usage: /score get player
+            permissions: score.eye
+        set:
+            description: Set score of player
+            usage: /score get <player>
+            permissions: score.manage
+        add:
+            description: Give score of player
+            usage: /score get <player>
+            permissions: score.manage
+        
+        
