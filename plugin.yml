@@ -3,6 +3,8 @@ main: ru.ttyh.LorStyleStars.LorStyleStars
 version: 0.02
 commands:
     score:
+        description: Show your score
+        usage: /score
         help:
             description: Show your stars
             usage: /score stars
@@ -25,7 +27,7 @@ commands:
             description: Reload player database
             usage: /score reload
             permissions: score.manage
-         save:
+        save:
             description: Save player database
             usage: /score save
             permissions: score.manage
