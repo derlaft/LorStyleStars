@@ -27,7 +27,7 @@ public class LorStyleStars extends JavaPlugin {
 		LorStyleStarsSystem.setup();
 		PluginManager pm = this.getServer().getPluginManager();
 
-		pm.registerEvent(Type.PLAYER_LOGIN, new LorStyleStarsPlayerListener(), Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_JOIN, new LorStyleStarsPlayerListener(), Priority.Normal, this);
 
 	}
 

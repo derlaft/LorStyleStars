@@ -5,7 +5,7 @@ import org.bukkit.event.player.PlayerListener;
 
 public class LorStyleStarsPlayerListener extends PlayerListener {
 
-	 public void onPlayerLogin(PlayerJoinEvent event) {
+	 public void onPlayerJoin(PlayerJoinEvent event) {
 		 String name = event.getPlayer().getName();
 		 LorStyleStarsSystem.updScore(name);
 	 }
