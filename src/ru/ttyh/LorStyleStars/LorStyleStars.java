@@ -15,7 +15,6 @@ import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import org.bukkit.plugin.Plugin;
 
-// TODO Permissions
 // TODO sqlite
 // TODO Take Chat Control
 
@@ -29,10 +28,11 @@ public class LorStyleStars extends JavaPlugin {
 	
 	public void onEnable() {
 		LorStyleStarsSystem.setup();
+		setupPermissions();
 		PluginManager pm = this.getServer().getPluginManager();
 
 		pm.registerEvent(Type.PLAYER_JOIN, new LorStyleStarsPlayerListener(), Priority.Normal, this);
-		setupPermissions();
+
 	}
 
 	@Override 
@@ -128,12 +128,13 @@ public class LorStyleStars extends JavaPlugin {
 		p.sendMessage("/score stars - show your stars" );
 		p.sendMessage("/score help - show this page" );
 		if (!notHave(p, "eye")) {
+			p.sendMessage(ChatColor.YELLOW+ "LorStyleScore watchers commands:" );
 			p.sendMessage("/score get <username> - get score of username" );
 		}
 		if (!notHave(p, "manage")) {
-			p.sendMessage(ChatColor.YELLOW+ "LorStyleScore ops commands:" );
+			p.sendMessage(ChatColor.YELLOW+ "LorStyleScore managers commands:" );
 			p.sendMessage("/score save - force save config" );
-			p.sendMessage("/score reload - reload config (without save)" );
+			p.sendMessage("/score reload - reload Fconfig (without save)" );
 			p.sendMessage("/score set <username> <count> - set score of username" );
 			p.sendMessage("/score add <username> <+/-><count> - add or remove score" );
 			
