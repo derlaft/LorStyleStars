@@ -1,6 +1,8 @@
 package ru.ttyh.LorStyleStars;
 
+
 import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,7 +40,6 @@ public class LorStyleStarsSystem {
 		}
 			config = new Configuration(file);
 			config.load();
-
 	}
 
 	public static void disable() {
@@ -57,8 +58,6 @@ public class LorStyleStarsSystem {
 		return score;
 	}
 	
-	
-
 	public static void addScore(String name, String count) {
 		name = name.toLowerCase();
 		int value = Integer.parseInt(count);
@@ -85,7 +84,7 @@ public class LorStyleStarsSystem {
 		String now = new java.text.SimpleDateFormat("dd-MM-yy")
 				.format(java.util.Calendar.getInstance().getTime());
 		String then = config.getString(name + ".utime", now);
-		if (now.equalsIgnoreCase(then)) {
+		if (now.equals(then)) {
 			return;
 		} else {
 			addScore(name, "1");

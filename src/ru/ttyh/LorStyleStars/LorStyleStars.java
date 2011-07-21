@@ -1,6 +1,7 @@
 package ru.ttyh.LorStyleStars;
 
 import org.bukkit.Bukkit;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -10,12 +11,15 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+// TODO Permissions
+// TODO sqlite3
+// TODO Chat stars
+
 public class LorStyleStars extends JavaPlugin {
 	
-	  
+
 	@Override
 	public void onDisable() {
-		// TODO Auto-generated method stub
 		LorStyleStarsSystem.disable();
 	}
 	
