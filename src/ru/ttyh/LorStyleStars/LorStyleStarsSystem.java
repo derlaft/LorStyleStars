@@ -138,7 +138,7 @@ public class LorStyleStarsSystem {
 	}
 	public void heal(long count) {
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-			if ( p.getHealth() == 20 ) 
+			if ( p.getHealth() >= 20 ) 
 				continue;
 			if (greenStars(p.getName()) != 0 ) {
 				if (count % (6 - greenStars(p.getName())) == 0) 
