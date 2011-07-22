@@ -1,6 +1,6 @@
 name: LorStyleStars
 main: ru.ttyh.LorStyleStars.LorStyleStars
-version: 0.03
+version: 0.1
 commands:
     score:
         description: Show your score

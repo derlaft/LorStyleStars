@@ -7,15 +7,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 
 public class LorStyleStarsSystem {
-	private static File file;
-	private static Configuration config;
-	public static boolean changed = false;
+	private File file;
+	private Configuration base;
 
-	public static void setup() {
+	public void setup() {
 		new File("plugins/LorStyleStars/").mkdir();
 		try {
 			new File("plugins/LorStyleStars/players.yml").createNewFile();
@@ -38,70 +39,70 @@ public class LorStyleStarsSystem {
 				}
 			}
 		}
-			config = new Configuration(file);
-			config.load();
+			base = new Configuration(file);
+			base.load();
 	}
 
-	public static void disable() {
-		config.save();
+	public void disable() {
+		base.save();
 	}
 	
-	public static void reload() {
-		config = new Configuration(file);
-		config.load();
+	public void reload() {
+		base = new Configuration(file);
+		base.load();
 	}
-	public static void save() {
-		config.save();
+	public void save() {
+		base.save();
 	}
 
-	public static int getScore(String name) {
+	public int getScore(String name) {
 		name = name.toLowerCase();
 		int score = 45;
-		score = config.getInt(name + ".score", score);
+		score = base.getInt(name + ".score", score);
 		return score;
 	}
 	
-	public static void addScore(String name, String count) {
+	public void addScore(String name, String count) {
 		name = name.toLowerCase();
 		int value = Integer.parseInt(count);
 		int score = 40;
-		score = config.getInt(name + ".score", score);
+		score = base.getInt(name + ".score", score);
 		score += value;
-		config.setProperty(name + ".score", score);
-		int maxscore = config.getInt(name + ".maxscore", score);
+		base.setProperty(name + ".score", score);
+		int maxscore = base.getInt(name + ".maxscore", score);
 		if (score > maxscore)
-			config.setProperty(name + ".maxscore", score);
+			base.setProperty(name + ".maxscore", score);
 	}
 
-	public static void setScore(String name, String value) {
+	public void setScore(String name, String value) {
 		name = name.toLowerCase();
 		int score = Integer.parseInt(value);
-		config.setProperty(name + ".score", score);
-		int maxscore = config.getInt(name + ".maxscore", score);
+		base.setProperty(name + ".score", score);
+		int maxscore = base.getInt(name + ".maxscore", score);
 		if (score > maxscore)
-			config.setProperty(name + ".maxscore", score);
+			base.setProperty(name + ".maxscore", score);
 	}
 
-	public static void updScore(String name) {
+	public void updScore(String name) {
 		name = name.toLowerCase();
 		String now = new java.text.SimpleDateFormat("dd-MM-yy")
 				.format(java.util.Calendar.getInstance().getTime());
-		String then = config.getString(name + ".utime", "never");
+		String then = base.getString(name + ".utime", "never");
 		if (now.equals(then)) {
 			return;
 		} else {
 			addScore(name, "1");
-			config.setProperty(name + ".utime", now);
+			base.setProperty(name + ".utime", now);
 		}
 
 	}
 
-	public static String scoreToStars(String name) {
+	public String scoreToStars(String name) {
 		name = name.toLowerCase();
 		int score = 45;
-		score = config.getInt(name + ".score", score);
+		score = base.getInt(name + ".score", score);
 		int maxscore = score;
-		maxscore = config.getInt(name + ".maxscore", maxscore);
+		maxscore = base.getInt(name + ".maxscore", maxscore);
 		int green = 0, grey = 0;
 		if (maxscore > 500)
 			maxscore = 500;
@@ -124,14 +125,28 @@ public class LorStyleStarsSystem {
 		out += ChatColor.WHITE;
 		return out;
 	}
-	public static int greenStars(String name) {
+	public static String stars(String name) {
+		return LorStyleStars.system.scoreToStars(name);
+	}
+	public int greenStars(String name) {
 		name = name.toLowerCase();
 		int score = 45;
-		score = config.getInt(name + ".score", score);
+		score = base.getInt(name + ".score", score);
 		if (score > 500)
 			score = 500;
 		return score/100;
 	}
+	public void heal(long count) {
+		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+			if ( p.getHealth() == 20 ) 
+				continue;
+			if (greenStars(p.getName()) != 0 ) {
+				if (count % (6 - greenStars(p.getName())) == 0) 
+					p.setHealth(p.getHealth() + 1);
+			}
+		}
+	}
+
 
 	
 }
