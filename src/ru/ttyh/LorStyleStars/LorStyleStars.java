@@ -23,14 +23,14 @@ public class LorStyleStars extends JavaPlugin {
 	public static PermissionHandler perms;
 	@Override
 	public void onDisable() {
-		LSSystem.disable();
+		LorStyleStarsSystem.disable();
 	}
 	
 	public void onEnable() {
-		LSSystem.setup();
+		LorStyleStarsSystem.setup();
 		setupPermissions();
 		PluginManager pm = this.getServer().getPluginManager();
-		LSPlayerListener listener = new LSPlayerListener();
+		LorStyleStarsPlayerListener listener = new LorStyleStarsPlayerListener();
 		pm.registerEvent(Type.PLAYER_JOIN, listener, Priority.Normal, this);
 		pm.registerEvent(Type.PLAYER_CHAT, listener, Priority.Normal, this);
 
@@ -47,23 +47,23 @@ public class LorStyleStars extends JavaPlugin {
 			switch (args.length) {
 			case 0:
 				p.sendMessage(ChatColor.YELLOW + "Your score is " +
-						LSSystem.getScore(p.getName()) );
+						LorStyleStarsSystem.getScore(p.getName()) );
 				return true;
 			case 1:
 				if (args[0].equalsIgnoreCase("stars") ) {
 					p.sendMessage(ChatColor.YELLOW + "Stars mark: " +
-							LSSystem.scoreToStars(p.getName()) );
+							LorStyleStarsSystem.scoreToStars(p.getName()) );
 					return true;
 				} else if (args[0].equalsIgnoreCase("reload") ) {
 					if (notHave(p, "manage")) 
 						return false;
-					LSSystem.reload();
+					LorStyleStarsSystem.reload();
 					p.sendMessage(ChatColor.YELLOW + "Config reloaded" );
 					return true;
 				} else  if (args[0].equalsIgnoreCase("save") ) {
 					if (notHave(p, "manage")) 
 						return false;
-					LSSystem.save();
+					LorStyleStarsSystem.save();
 					p.sendMessage(ChatColor.YELLOW + "Config saved" );
 					return true;
 				} else if (args[0].equalsIgnoreCase("help") ) {
@@ -73,7 +73,7 @@ public class LorStyleStars extends JavaPlugin {
 				if (args[0].equalsIgnoreCase("get")  ) {
 					if (p.getName() == args[1] || !notHave(p, "eye") )
 							p.sendMessage(ChatColor.YELLOW + args[1] + "'s score is " +
-							LSSystem.getScore(args[1]) );
+							LorStyleStarsSystem.getScore(args[1]) );
 					return true;
 				} else return false;
 			case 3:
@@ -86,13 +86,13 @@ public class LorStyleStars extends JavaPlugin {
 					return true;
 				}
 				if ( args[0].equalsIgnoreCase("set") ) {
-					LSSystem.setScore(args[1], args[2]);
+					LorStyleStarsSystem.setScore(args[1], args[2]);
 					Bukkit.getServer().broadcastMessage(
 							ChatColor.GRAY + p.getName() + " sets " + 
 							args[1] + "'s score to " + args[2]);
 					return true;
 				} else if ( args[0].equalsIgnoreCase("add")) {
-					LSSystem.addScore(args[1], args[2]);
+					LorStyleStarsSystem.addScore(args[1], args[2]);
 					if ( Integer.parseInt(args[2]) > 0 )
 						Bukkit.getServer().broadcastMessage(
 								ChatColor.GREEN + p.getName() + " gives " + 
