@@ -10,7 +10,7 @@ import java.io.IOException;
 import org.bukkit.ChatColor;
 import org.bukkit.util.config.Configuration;
 
-public class LorStyleStarsSystem {
+public class LSSystem {
 	private static File file;
 	private static Configuration config;
 	public static boolean changed = false;
